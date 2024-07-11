@@ -1,8 +1,55 @@
 <html>
   <head>
     <title>Mern | Broadway | 1:30 PM</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      html {
+        font-size: 10px;
+      }
+
+      h1 {
+        color: red;
+        background-color: black;
+        height: 50vh;
+        font-size: 2rem;
+        margin: 2em;
+      }
+
+      .btn {
+        color: white;
+        background-color: lightblue;
+        border: none;
+        font-size: 2rem;
+        padding: 0.4em 0.8em;
+        border-radius: 5px;
+      }
+
+      .btn-danger {
+        background-color: red;
+      }
+
+      .btn-warning {
+        color: black;
+        background-color: yellow;
+      }
+
+      @media (max-width: 600px) {
+        html {
+          font-size: 6px;
+        }
+      }
+
+      #login {
+        color: green;
+      }
+    </style>
   </head>
   <body>
+    <button class="btn" id="login">Login</button>
+    <button class="btn btn-warning">Login</button>
+    <button class="btn btn-danger">Delete</button>
+    <button>link</button>
     <nav>
       <ul>
         <li><a href="aboutus.html">About Us</a></li>
@@ -18,6 +65,7 @@
       voluptatum saepe, voluptatem natus fugit unde quae placeat facere
       mollitia!
     </p>
+
     <h2>MongodDb</h2>
     <p>
       Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit,
@@ -43,7 +91,20 @@
       <li>Gatsby</li>
       <li>Remix</li>
     </ol>
-
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Basanta Kc</td>
+          <td>10</td>
+        </tr>
+      </tbody>
+    </table>
     <!-- country=np, in -->
 
     <!-- // email, password, gender, bio, country, -->
