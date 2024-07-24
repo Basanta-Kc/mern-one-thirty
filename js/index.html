@@ -7,81 +7,90 @@
     <style></style>
   </head>
   <body>
+    <button id="button">Button</button>
     <script>
-      // Function => a,b => a+b
-      // x = a +b;
-      // y = c + m;
-      // z = d + m;
-      // x= add(a,b)
+      // 1. function can be passed as an value
+      // const add = function (a, b) {
+      //   return a + b;
+      // };
 
-      // const count = 0;
+      // const addv2 = add; // add(2,3) , addv2(a,b)
 
+      // const highOrderFunc = function (callbackFunc) {
+      //   callbackFunc();
+      // };
+
+      // const func = function () {};
+
+      // highOrderFunc(func);
+      // highOrderFunc(function () {});
+
+      // const highOrderFuncV2 = function () {
+      //   let count = 0;
+      //   const func = function () {};
+
+      //   return func;
+      // };
+
+      // const highOrderFuncV3 = function () {
+      //    count count = 0
+      //   return function () {};
+      // };
+
+      // //  Arrow Function
       // function add(a, b) {
-      // let a= 2, b= 3
+      //   return a + b;
+      // }
+
+      // const addArrFunc = (a, b) => {
       //   const result = a + b;
       //   return result;
+      // };
+
+      // const addArrFuncOneLiner = (a, b) => a + b;
+
+      // function multiplyBy4() {
+      //   return num * 4;
       // }
 
-      // const result = add(2, 3);
-      // console.log(result);
-      // let a;
+      // const multiplyBy4 = (n) => n * 4;
+      // const a = 2;
+      // const b = 4;
+      // const c = a;
 
-      // function showMessage(userName = "Sir/ Madam") {
-      //   let message = "Hello, " + userName;
-      //   alert(message);
-      // }
+      // const add = function () {};
 
-      const a = 10;
-      const b = a;
+      // const addv2 = add; // addv2() , add()
 
-      const add = function (a, b) {
-        console.log(a + b);
-        const result = a +b;
-        return result;
-      };
-      const addV2 = add;
+      // Animal a = new Animal()
+      // Person p = new Person("basanta", 20)
+      // Object
 
-      addV2(3, 4);
-      add(5, 6);
+      // const person = { name: "basanta" };
+      // console.log(person);
+      // person.age = 22;
+      // person.job = "software engineer";
+      // console.log(person);
+      // delete person.age;
+      // console.log(person);
+      // person.job = 'qa'
+      // conole.log(person)
 
-      const num1 = 10;
-      const num2 = 20;
-      add(num1, num2)
+      // const key = prompt("what detail you need?");
 
+      // perosn[key] = "value"
 
-      const func1 = function(){
-        console.log("from func 1")
-      }
-
-      const func2 = function(){
-        console.log("from func2")
-      }
-
-      const highOrderFunc = function(cb1,cb2){
-        // cb1 = func1
-        // cb2 = func2
-
-        cb1()
-        cb2()
-
-      }
-
-      highOrderFunc(func1, func2)
-
-
-
-      const highOrderFunc2 = function(){
-        const func = function(){
-          console.log("this is func")
+      const person = {};
+      while (true) {
+        const key = prompt("enter key:");
+        if (key === "exit") {
+          console.log("final result: ", person);
+          break;
         }
-
-        return func;
+        const value = prompt("enter value:");
+        person[key] = value;
       }
-
-
-      const returnedFunc = highOrderFunc2()
-      returnedFunc()
-
+      console.log(person);
     </script>
   </body>
 </html>
