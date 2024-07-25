@@ -80,17 +80,98 @@
 
       // perosn[key] = "value"
 
-      const person = {};
-      while (true) {
-        const key = prompt("enter key:");
-        if (key === "exit") {
-          console.log("final result: ", person);
-          break;
-        }
-        const value = prompt("enter value:");
-        person[key] = value;
+      // const person = {};
+      // while (true) {
+      //   const key = prompt("enter key:");
+      //   if (key === "exit") {
+      //     console.log("final result: ", person);
+      //     break;
+      //   }
+      //   const value = prompt("enter value:");
+      //   person[key] = value;
+      // }
+      // console.log(person);
+      // const a = {};
+      // const b = {};
+      // const e = a; // paseed by reference
+      // a.name = "basanta"
+      // console.log(e.name);
+
+      // passed by value
+      let a = 2;
+      let b = a;
+      b = 3;
+
+      // const c = 2;
+      // const d = 2;
+
+      // console.log(c===d); // true
+
+      // console.log(a === b)
+      // // console.log(a === e) // ture
+
+      const person = {
+        name: "basanta",
+        age: 0,
+        father: {
+          name: "Devi",
+          age: 50,
+        },
+      };
+
+      if(person.age){
+
       }
-      console.log(person);
+
+      console.log("name" in person)
+
+      // console.log(person.mother?.name ?? "no mother name");
+
+      // const father = person.father;
+
+      // person.father.age = 40;
+      // father.age = 48;
+
+      // function greet(obj) {
+      //   // obj = person
+      //   obj.greet = "helloo";
+      // }
+
+      // greet(person);
+
+      // console.log(person);
+
+      // delete person.name;
+
+      // console.log(person);
+
+      // // person = {}
+
+      // // person.name = "basnata kc";
+      // // console.log(person);
+      // let user = {
+      //   name: "John",
+      //   age: 30,
+      //   "likes birds": true, // multiword property name must be quoted
+      // };
+
+      // user.age
+      // user.name
+      // user['likes birds']
+      // for (let key in person) {
+      //   console.log(person[key]);
+      // }
+
+      // const name = "basanta";
+      // let num = 2;
+      // const person = {
+      //   age: num,
+      //   name, // name: name
+      //   0: "value 0",
+      // };
+
+      // person[0];
+      // console.log(person);
     </script>
   </body>
 </html>
