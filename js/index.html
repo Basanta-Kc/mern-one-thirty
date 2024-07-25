@@ -9,169 +9,75 @@
   <body>
     <button id="button">Button</button>
     <script>
-      // 1. function can be passed as an value
-      // const add = function (a, b) {
-      //   return a + b;
-      // };
-
-      // const addv2 = add; // add(2,3) , addv2(a,b)
-
-      // const highOrderFunc = function (callbackFunc) {
-      //   callbackFunc();
-      // };
-
-      // const func = function () {};
-
-      // highOrderFunc(func);
-      // highOrderFunc(function () {});
-
-      // const highOrderFuncV2 = function () {
-      //   let count = 0;
-      //   const func = function () {};
-
-      //   return func;
-      // };
-
-      // const highOrderFuncV3 = function () {
-      //    count count = 0
-      //   return function () {};
-      // };
-
-      // //  Arrow Function
-      // function add(a, b) {
-      //   return a + b;
+      // const numbers = new Array()
+      // const numbers = [1, 2, 3, 4, "basanta"];
+      // for (let i = 0; i < numbers.length; i++) {
+      //   console.log(numbers[i]);
       // }
 
-      // const addArrFunc = (a, b) => {
-      //   const result = a + b;
-      //   return result;
-      // };
+      // // stack
+      // const fruitsStack = ["apple", "oragne", "mango"];
+      // // fruitsStack[0] = "grapes"
+      // // console.log(fruitsStack.pop())
+      // // console.log(fruitsStack)
+      // console.log(fruitsStack.shift());
+      // console.log(fruitsStack.unshift("pine apple"));
+      // console.log(fruitsStack);
 
-      // const addArrFuncOneLiner = (a, b) => a + b;
+      // // queye
+      // const queue = ["basanta", "kritika", "chewang"];
 
-      // function multiplyBy4() {
-      //   return num * 4;
+      // queue.shift();
+      // queue.shift();
+
+      // queue.push("jamal");
+
+      // console.log(queue);
+
+      // for(let key of queue){
+      //   console.log(key)
       // }
 
-      // const multiplyBy4 = (n) => n * 4;
-      // const a = 2;
-      // const b = 4;
-      // const c = a;
 
-      // const add = function () {};
+      const fruits = ["apple", "orange", "mango"]
+      for(const index in fruits){
+        console.log(index)
+      }
 
-      // const addv2 = add; // addv2() , add()
+      for(const fruit of fruits){
+        console.log(fruit)
+      }
 
-      // Animal a = new Animal()
-      // Person p = new Person("basanta", 20)
-      // Object
+      // stack, queue, for of , for in
 
-      // const person = { name: "basanta" };
-      // console.log(person);
-      // person.age = 22;
-      // person.job = "software engineer";
-      // console.log(person);
-      // delete person.age;
-      // console.log(person);
-      // person.job = 'qa'
-      // conole.log(person)
-
-      // const key = prompt("what detail you need?");
-
-      // perosn[key] = "value"
-
-      // const person = {};
-      // while (true) {
-      //   const key = prompt("enter key:");
-      //   if (key === "exit") {
-      //     console.log("final result: ", person);
-      //     break;
-      //   }
-      //   const value = prompt("enter value:");
-      //   person[key] = value;
-      // }
-      // console.log(person);
-      // const a = {};
-      // const b = {};
-      // const e = a; // paseed by reference
-      // a.name = "basanta"
-      // console.log(e.name);
-
-      // passed by value
-      let a = 2;
-      let b = a;
-      b = 3;
-
-      // const c = 2;
-      // const d = 2;
-
-      // console.log(c===d); // true
-
-      // console.log(a === b)
-      // // console.log(a === e) // ture
-
-      const person = {
-        name: "basanta",
-        age: 0,
-        father: {
-          name: "Devi",
-          age: 50,
+      const queue = {
+        list : [],
+        enqueue: function(item){
+          this.list.push(item)
+          console.log("Update Queue", this.list)
         },
-      };
+        dequeue: function(){
+          this.list.shift()
+          console.log("Update Queue", this.list)
+        }
+      }
 
-      if(person.age){
+      queue.enqueue("basnata")
+      queue.enqueue("ram")
+
+      queue.dequeue()
+
+      const nums = []
+      const nums2 = nums
+
+      function test(numbers){
+        numbers[0] = 10;
 
       }
 
-      console.log("name" in person)
+      test(nums2)
 
-      // console.log(person.mother?.name ?? "no mother name");
-
-      // const father = person.father;
-
-      // person.father.age = 40;
-      // father.age = 48;
-
-      // function greet(obj) {
-      //   // obj = person
-      //   obj.greet = "helloo";
-      // }
-
-      // greet(person);
-
-      // console.log(person);
-
-      // delete person.name;
-
-      // console.log(person);
-
-      // // person = {}
-
-      // // person.name = "basnata kc";
-      // // console.log(person);
-      // let user = {
-      //   name: "John",
-      //   age: 30,
-      //   "likes birds": true, // multiword property name must be quoted
-      // };
-
-      // user.age
-      // user.name
-      // user['likes birds']
-      // for (let key in person) {
-      //   console.log(person[key]);
-      // }
-
-      // const name = "basanta";
-      // let num = 2;
-      // const person = {
-      //   age: num,
-      //   name, // name: name
-      //   0: "value 0",
-      // };
-
-      // person[0];
-      // console.log(person);
+      console.log(nums) // [10]
     </script>
   </body>
 </html>
