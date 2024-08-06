@@ -4,82 +4,70 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style></style>
+    <style>
+      .h1 {
+        font-size: 50px;
+      }
+    </style>
   </head>
   <body>
-    <button id="button">Button</button>
+    <form id="github-form">
+      <input type="text" name="githubUserName" id="githubUserName" required />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <ul id="parent-list">
+    
+    </ul>
     <script>
-      // const internPromise = new Promise((resolve, reject) => {
-      //   setTimeout(() => {
-      //     resolve("No Intern.");
-      //   }, 3000);
-      // });
+      const githubFormEl = document.getElementById("github-form");
+      githubFormEl.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const githubUserNameEl = document.getElementById("githubUserName");
+        const githubUserName = githubUserNameEl.value;
 
-      // console.log(internPromise);
-      // internPromise.then((value) => {
-      //   console.log(value)
-      // }).catch((err) => {
-      //   console.log(err)
-      // })
+        const username = "basanta";
+        const location = "kathmandu";
+        const weather = "24.5";
 
-      // console.log("fdafasfd")
+        const dyanmicListt = `<li class="list"><b>User Name :</b> ${username}</li>
+      <li class="list"><b>Location :</b> Kathmandu, Nepal</li>
+      <li><b>Weather :</b> 27.6</li>`;
+        document.getElementById("parent-list").innerHTML = dyanmicListt;
+      });
+      // const githubUserName = prompt("Enter Github user name");
 
-      // function getUser() {
-      //   const user = { name: "basanta", age: 10 };
-      //   return new Promise((resolve, reject) => {
-      //     resolve(user);
-      //   });
+      // async function getUserLocationAndTemp() {
+      //   const githubRes = await fetch(
+      //     `https://api.github.com/users/${githubUserName}`
+      //   );
+      //   const user = await githubRes.json();
+      //   const weatherRes = await fetch(
+      //     `https://api.weatherapi.com/v1/current.json?key=3c1465617acd467ca89113605241806&q=${user.location}`
+      //   );
+      //   const weather = await weatherRes.json();
+      //   console.log(weather, user);
       // }
 
-      // const basantaPromise = getUser(); // Promis()
-      // console.log(basantaPromise);
-      // basantaPromise
-      //   .then((value) => {
-      //     return value.name;
-      //   }) // new Promise((resolve) => resovle(value.name))
-      //   .then((name) => console.log(name));
-
-      // fetch("https://randomuser.me/api/").then((res) => {
-      //   res.json().then((data) => {
-      //     console.log(data.results[0].name.first);
-      //   });
-      // });
-
-      // fetch("https://randomuser.me/api/")
+      // fetch(`https://api.github.com/users/${githubUserName}`)
       //   .then((res) => {
-      //     return res.json();
+      //     return res.json()
       //   })
-      //   .then((data) => {
-      //     console.log(data.results[0].name.first);
+      //   .then((user) => {
+      //     const location = user.location;
+      //     const name = user.name;
+      //     console.log("User:", name);
+      //     console.log("Location:", location);
+      //     fetch(
+      //       `https://api.weatherapi.com/v1/current.json?key=3c1465617acd467ca89113605241806&q=${location}`
+      //     )
+      //       .then((weatherRes) => {
+      //         return weatherRes.json();
+      //       })
+      //       .then((weather) => {
+      //         console.log("Tempreature:", weather.current.temp_c);
+      //       });
       //   });
-
-      const getRandomUser = async () => {
-        const res =  await fetch("https://randomuser.me/api/")
-        const user = await res.json()
-        console.log(user)
-      };
-
-      const getUseDetailByGithubUserName = async (githubUserName) => {
-        const res = await fetch(
-          `https://api.github.com/users/${githubUserName}`
-        );
-        const user = await res.json();
-        console.log(user);
-      };
-
-      const githubUserName = prompt("Enter Github Username:");
-      getUseDetailByGithubUserName(githubUserName);
-
-      async function getUser() {
-        return { name: "ujjwal" };
-      }
-
-      console.log(getUser()); // Promise
-
-      const getUserAndWeather(githubUsername){
-
-        // Hello ${username}, Wearther at your location right now is ${temp}
-      }
     </script>
   </body>
 </html>
