@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-const products = [
+// mongodb (database)
+let products = [
   {
     id: 1,
     name: "Bag",
@@ -14,7 +15,7 @@ const products = [
     price: 200,
   },
   {
-    id: 2,
+    id: 3,
     name: "Women Bag",
     price: 200,
   },
@@ -36,11 +37,37 @@ app.get("/products", (req, res) => {
   });
 });
 
+app.get("/products/add", (req, res) => {
+  products.push(req.query);
+  res.json({
+    message: "Product added successfully.",
+  });
+});
+
 app.get("/products/:productId", (req, res) => {
   const product = products.find(
     (product) => product.id === +req.params.productId
   );
   res.json({ message: "Product fetched successfully", data: product });
+});
+
+app.get("/products/delete/:id", (req, res) => {
+  const id = req.params.id;
+  products = products.filter((product) => product.id !== +id);
+  res.json({
+    message: "Product deleted succesfully",
+    data: products,
+  });
+});
+
+app.get("/products/update/:id", (req, res) => {
+  const id = req.params.id;
+  const productToBeupdated = products.find((product) => product.id === +id);
+  productToBeupdated.name = req.query.name;
+  res.json({
+    message: "Product updated succesfully.",
+    data: productToBeupdated,
+  });
 });
 
 app.get("/sign-in", (req, res) => {
