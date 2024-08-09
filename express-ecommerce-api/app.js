@@ -9,6 +9,8 @@ let users = [
   {
     id: 1,
     name: "basanta",
+    email: "devbasanta@mgail.com",
+    password: "2343423432",
     age: 10,
     school: "Nature Boarding High School",
   },
