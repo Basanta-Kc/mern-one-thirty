@@ -1,6 +1,16 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
+
+mongoose.connect("mongodb://127.0.0.1:27017/one-thirty-shop").then(() => {
+  console.log("Database Connected");
+});
+
+// const Cat = mongoose.model("Cat", { name: String });
+
+// const kitty = new Cat({ name: "Zildjian" });
+// kitty.save().then(() => console.log("meow"));
 
 app.use(express.json());
 
@@ -48,6 +58,13 @@ let orders = [
   },
 ];
 
+const productSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+});
+
+const Product = mongoose.model("Product", productSchema);
+
 // mongodb (database)
 let products = [
   {
@@ -68,41 +85,34 @@ let products = [
 ];
 
 app.get("/products", (req, res) => {
-  const search = req.query.search;
-  let data = products;
-
-  if (search) {
-    data = products.filter((product) => {
-      return product.name.toLowerCase().includes(search);
+  Product.find().then((products) => {
+    res.json({
+      message: "Products fetched successfully",
+      data: products,
     });
-  }
-
-  res.json({
-    message: "Products fetched successfully",
-    data,
   });
 });
 
 app.post("/products/add", (req, res) => {
-  products.push(req.body);
-  res.json({
-    message: "Product added successfully.",
+  // req.body {name: shoe, price: 100}
+  Product.create(req.body).then(() => {
+    res.json({
+      message: "Product added successfully.",
+    });
   });
 });
 
 app.get("/products/:productId", (req, res) => {
-  const product = products.find(
-    (product) => product.id === +req.params.productId
-  );
-  res.json({ message: "Product fetched successfully", data: product });
+  Product.findById(req.params.productId).then((product) => {
+    res.json({ message: "Product fetched successfully", data: product });
+  });
 });
 
-app.delete("/products/delete/:id", (req, res) => {
-  const id = req.params.id;
-  products = products.filter((product) => product.id !== +id);
-  res.json({
-    message: "Product deleted succesfully",
-    data: products,
+app.delete("/products/delete/:productId", (req, res) => {
+  Product.deleteOne({ _id: req.params.productId }).then(() => {
+    res.json({
+      message: "Product deleted succesfully",
+    });
   });
 });
 
