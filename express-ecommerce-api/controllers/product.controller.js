@@ -8,6 +8,7 @@ const getProducts = async (req, res) => {
       data: products,
     });
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       message: "something went wrong.",
     });
