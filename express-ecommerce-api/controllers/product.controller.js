@@ -8,7 +8,7 @@ const getProducts = async (req, res) => {
       data: products,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({
       message: "something went wrong.",
     });
@@ -16,6 +16,10 @@ const getProducts = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
+  if (req.headers.token !== "1234567") {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
   await Product.create(req.body);
   res.status(201).json({
     message: "Product added successfully.",
@@ -23,6 +27,10 @@ const addProduct = async (req, res) => {
 };
 
 const getProductById = async (req, res) => {
+  if (req.headers.token !== "1234567") {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
   const product = await Product.findById(req.params.productId);
   res
     .status(200)
