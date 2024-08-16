@@ -1,6 +1,7 @@
 const Product = require("../models/Product");
 
 const getProducts = async (req, res) => {
+  console.log(req.authUser);
   try {
     const products = await Product.find();
     res.status(200).json({
@@ -16,21 +17,17 @@ const getProducts = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  if (req.headers.token !== "1234567") {
-    res.status(401).json({ message: "Unauthorized" });
-    return;
-  }
-  await Product.create(req.body);
+  await Product.create({
+    name: req.body.name,
+    price: req.body.price,
+    user: req.authUser._id,
+  });
   res.status(201).json({
     message: "Product added successfully.",
   });
 };
 
 const getProductById = async (req, res) => {
-  if (req.headers.token !== "1234567") {
-    res.status(401).json({ message: "Unauthorized" });
-    return;
-  }
   const product = await Product.findById(req.params.productId);
   res
     .status(200)
