@@ -34,3 +34,9 @@ app.all("*", (req, res) => {
 app.listen(port, () => {
   console.log(`Ecommerce app listening on port ${port}`);
 });
+
+// Home Work: Add validtor for all the end points
+// Add product api can be called by user without admin role what can we do about it??
+
+// Role based authroization,
+// Error handling.
