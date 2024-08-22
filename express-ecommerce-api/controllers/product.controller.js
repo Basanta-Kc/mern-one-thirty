@@ -1,19 +1,16 @@
 const Product = require("../models/Product");
 
 const getProducts = async (req, res) => {
-  console.log(req.authUser);
-  try {
-    const products = await Product.find();
-    res.status(200).json({
-      message: "Products fetched successfully",
-      data: products,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "something went wrong.",
-    });
-  }
+  // Home Work: 
+  // ?name=shoes
+  // ?priceOrder=asc | desc
+  // ?name=shoes&priceOrder=asc
+  // search by name, price anusar sorting (asc descending)
+  const products = await Product.find();
+  res.status(200).json({
+    message: "Products fetched successfully",
+    data: products,
+  });
 };
 
 const addProduct = async (req, res) => {

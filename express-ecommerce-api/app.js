@@ -1,7 +1,7 @@
 const express = require("express");
+require("express-async-errors");
 const app = express();
 const port = 3003;
-const { query, validationResult } = require("express-validator");
 const connectDb = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
 const productRoutes = require("./routes/product.routes");
@@ -10,17 +10,11 @@ app.use(express.json());
 
 connectDb();
 
-app.get(
-  "/add-product",
-  query("name").notEmpty(),
-  query("price").notEmpty(),
-  (req, res) => {
-    const result = validationResult(req);
-    res.json({
-      errors: result.array(),
-    });
-  }
-);
+app.get("/test", async (req, res, next) => {
+  res.staus(202).json({
+    message: "ok",
+  });
+});
 
 app.use("/products", productRoutes);
 app.use("/auth", authRoutes);
@@ -28,6 +22,13 @@ app.use("/auth", authRoutes);
 app.all("*", (req, res) => {
   res.status(404).json({
     message: "Route not found.",
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).json({
+    message: "Something went wrong.",
   });
 });
 

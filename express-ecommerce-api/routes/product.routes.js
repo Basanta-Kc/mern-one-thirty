@@ -7,12 +7,15 @@ const {
   updateProductById,
   addProduct,
 } = require("../controllers/product.controller");
-const { checkAuth } = require("../middleware/check-auth.middleware");
+const {
+  checkAuth,
+  checkAuthAdmin,
+} = require("../middleware/check-auth.middleware");
 const validate = require("../middleware/validator.middleware");
 
 const router = express.Router();
 
-router.get("/", checkAuth, getProducts);
+router.get("/", getProducts);
 router.post(
   "/",
   checkAuth,
@@ -22,7 +25,7 @@ router.post(
   addProduct
 );
 router.get("/:productId", checkAuth, getProductById);
-router.delete("/:productId", deleteProductById);
-router.patch("/:productId", updateProductById);
+router.delete("/:productId", checkAuthAdmin, deleteProductById);
+router.patch("/:productId", checkAuthAdmin, updateProductById);
 
 module.exports = router;

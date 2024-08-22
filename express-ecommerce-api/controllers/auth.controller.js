@@ -26,7 +26,7 @@ const signUp = async (req, res) => {
   });
 };
 
-const signIn = async (req, res) => {
+const signIn = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email }); // { email, password}
 
   if (!user) {
@@ -38,7 +38,7 @@ const signIn = async (req, res) => {
   const isValidPassword = bcrypt.compareSync(req.body.password, user.password);
 
   if (isValidPassword) {
-    const token = jwt.sign(
+    const token = jwt.sig(
       {
         _id: user._id,
         email: user.email,
