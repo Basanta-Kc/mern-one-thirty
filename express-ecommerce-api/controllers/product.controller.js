@@ -2,9 +2,11 @@ const Product = require("../models/Product");
 
 //home-work: validate the query fields using express-validaator
 // total ma ailey 0 xa tesma total count,
-// order => desc, asc 
+// order => desc, asc
 // page ra limit => positve number
 // search
+// create admin.controller.ts /admin/users (pagination, search by name and email), admin/products
+// file upload (multer)
 const getProducts = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   // Home Work:
