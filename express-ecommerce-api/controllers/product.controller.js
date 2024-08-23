@@ -1,15 +1,43 @@
 const Product = require("../models/Product");
 
+//home-work: validate the query fields using express-validaator
+// total ma ailey 0 xa tesma total count,
+// order => desc, asc 
+// page ra limit => positve number
+// search
 const getProducts = async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
   // Home Work:
   // ?name=shoes
   // ?priceOrder=asc | desc
   // ?name=shoes&priceOrder=asc
   // search by name, price anusar sorting (asc descending)
-  const products = await Product.find();
+  // wher name like %search%
+  const sortByFilter = {};
+
+  if (req.query.order) {
+    sortByFilter.price = req.query.order;
+  }
+
+  const filter = { name: new RegExp(req.query.search) };
+
+  if (req.query.minPrice && req.query.maxPrice) {
+    filter.price = { $gte: req.query.minPrice, $lte: req.query.maxPrice };
+  }
+  // whre price >= 200 and price <= 300
+  const products = await Product.find(filter)
+    .sort(sortByFilter)
+    .limit(limit)
+    .skip((page - 1) * limit ?? 10);
+  // page =1, skip = 0, page=2, skip = 2 (2 * 1), page=3 skip =4 (2 * 2), page =4 skip = 6 (2 * 3)
+
   res.status(200).json({
     message: "Products fetched successfully",
-    data: products,
+    data: {
+      page,
+      total: 0,
+      data: products,
+    },
   });
 };
 
