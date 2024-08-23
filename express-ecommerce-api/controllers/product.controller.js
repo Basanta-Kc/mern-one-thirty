@@ -1,7 +1,7 @@
 const Product = require("../models/Product");
 
 const getProducts = async (req, res) => {
-  // Home Work: 
+  // Home Work:
   // ?name=shoes
   // ?priceOrder=asc | desc
   // ?name=shoes&priceOrder=asc
