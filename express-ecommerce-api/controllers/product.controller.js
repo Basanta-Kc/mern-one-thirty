@@ -33,11 +33,13 @@ const getProducts = async (req, res) => {
     .skip((page - 1) * limit ?? 10);
   // page =1, skip = 0, page=2, skip = 2 (2 * 1), page=3 skip =4 (2 * 2), page =4 skip = 6 (2 * 3)
 
+  const total = await Product.countDocuments(filter);
+
   res.status(200).json({
     message: "Products fetched successfully",
     data: {
       page,
-      total: 0,
+      total,
       data: products,
     },
   });
@@ -48,6 +50,7 @@ const addProduct = async (req, res) => {
     name: req.body.name,
     price: req.body.price,
     user: req.authUser._id,
+    image: req.file.filename,
   });
   res.status(201).json({
     message: "Product added successfully.",

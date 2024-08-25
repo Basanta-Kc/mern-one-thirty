@@ -7,6 +7,7 @@ const authRoutes = require("./routes/auth.routes");
 const productRoutes = require("./routes/product.routes");
 
 app.use(express.json());
+app.use(express.static("uploads"));
 
 connectDb();
 
