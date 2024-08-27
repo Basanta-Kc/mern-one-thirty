@@ -4,7 +4,7 @@
   "description": "Rest api for ecommerce application",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "nodemon --env-file=.env app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Basanta-kc",
