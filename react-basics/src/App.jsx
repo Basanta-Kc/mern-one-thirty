@@ -1,10 +1,10 @@
 import "./App.css";
-import Todo from "./Todo";
+import { UseState } from "./UseState";
 
 function App() {
   return (
     <>
-      <Todo />
+      <UseState />
     </>
   );
 }
