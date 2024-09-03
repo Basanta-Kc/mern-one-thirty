@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TodoForm } from "./components/todo/TodoForm";
 import { TodoList } from "./components/todo/TodoList";
 import PropTypes from "prop-types";
@@ -19,18 +19,26 @@ TodoTitle.propTypes = {
 function Todo() {
   const [indexToBeEdited, setIndexToBeEdited] = useState(null);
   const [todo, setTodo] = useState(" ");
-  const [todos, setTodos] = useState(["learn html", "Learn css", "learn Js"]);
+  const [todos, setTodos] = useState(() => {
+    return JSON.parse(localStorage.getItem("todos")) ?? []; // null
+  });
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let updatedTodos;
     if (indexToBeEdited === null) {
-      setTodos([...todos, todo]);
+      updatedTodos = [...todos, todo];
     } else {
       todos[indexToBeEdited] = todo;
-      setTodos([...todos]);
+      updatedTodos = [...todos];
       setIndexToBeEdited(null);
     }
     setTodo("");
+    setTodos(updatedTodos);
   };
 
   const handleDelete = (indexToBeDeleted) => {

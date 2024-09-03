@@ -1,10 +1,10 @@
 import "./App.css";
-import { UseState } from "./UseState";
+import Counter from "./Counter";
 
 function App() {
   return (
     <>
-      <UseState />
+      <Counter />
     </>
   );
 }

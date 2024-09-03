@@ -16,25 +16,27 @@
       <input type="submit" value="Submit" />
     </form>
 
-    <ul id="parent-list">
-    
-    </ul>
+    <ul id="parent-list"></ul>
     <script>
-      const githubFormEl = document.getElementById("github-form");
-      githubFormEl.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const githubUserNameEl = document.getElementById("githubUserName");
-        const githubUserName = githubUserNameEl.value;
+      const todos = { name: "basnata" };
+      localStorage.setItem("todos", JSON.stringify(todos));
+      // const todosFromLS = localStorage.getItem("todos");
+      // console.log(JSON.parse(todosFromLS));
+      // const githubFormEl = document.getElementById("github-form");
+      // githubFormEl.addEventListener("submit", (e) => {
+      //   e.preventDefault();
+      //   const githubUserNameEl = document.getElementById("githubUserName");
+      //   const githubUserName = githubUserNameEl.value;
 
-        const username = "basanta";
-        const location = "kathmandu";
-        const weather = "24.5";
+      //   const username = "basanta";
+      //   const location = "kathmandu";
+      //   const weather = "24.5";
 
-        const dyanmicListt = `<li class="list"><b>User Name :</b> ${username}</li>
-      <li class="list"><b>Location :</b> Kathmandu, Nepal</li>
-      <li><b>Weather :</b> 27.6</li>`;
-        document.getElementById("parent-list").innerHTML = dyanmicListt;
-      });
+      //   const dyanmicListt = `<li class="list"><b>User Name :</b> ${username}</li>
+      // <li class="list"><b>Location :</b> Kathmandu, Nepal</li>
+      // <li><b>Weather :</b> 27.6</li>`;
+      //   document.getElementById("parent-list").innerHTML = dyanmicListt;
+      // });
       // const githubUserName = prompt("Enter Github user name");
 
       // async function getUserLocationAndTemp() {
