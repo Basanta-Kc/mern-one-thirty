@@ -1,35 +1,25 @@
-/* eslint-disable react/display-name */
-import React, { useState } from "react";
-import "./App.css";
-
-const Input = ({ value, handleChange }) => {
-  return <input type="text" value={value} onChange={handleChange} />;
-};
-
-const DisplayInputValue = React.memo(({ value }) => {
-  console.log("Display Input Value Called.");
-  return <p>Value: {value}</p>;
-});
+import { useRef } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [value, setValue] = useState();
-  const handleAdd = () => setCount(count + 1);
-
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
-
+  const inputNameRef = useRef();
   return (
     <>
-      <button onClick={handleAdd}>add + </button>
-      <p>Count: {count}</p>
-      <Input value={value} handleChange={handleChange} />
-      <DisplayInputValue value={value} />
+      <label htmlFor="name">Name</label>
+      <input id="name" ref={inputNameRef} name="name" placeholder="name" />
+      <button
+        onClick={() => {
+          inputNameRef.current.focus();
+          alert(inputNameRef.current.value);
+        }}
+      >
+        Focus on input
+      </button>
     </>
   );
 }
 
 export default App;
 
-// Tood: children pattern
+onclick = () => {
+  document.getElementById("name").focus();
+};
