@@ -14,7 +14,7 @@ function Home() {
       <Typography variant="h4" textAlign="center" my={5}>
         Featured Products
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} justifyContent="space-around">
         <Grid size="3">
           <Product />
         </Grid>

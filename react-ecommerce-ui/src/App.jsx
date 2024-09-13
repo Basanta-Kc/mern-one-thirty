@@ -21,3 +21,6 @@ function App() {
 }
 
 export default App;
+
+// logo ma click garda home page
+// order page banauna paro, add order in navbar

@@ -7,7 +7,7 @@ function Products() {
   return (
     <>
       <NavBar />
-      <Grid container spacing={2}>
+      <Grid container spacing={2} justifyContent="space-around">
         <Grid size="3">
           <Product />
         </Grid>
