@@ -51,6 +51,7 @@ const addProduct = async (req, res) => {
     price: req.body.price,
     user: req.authUser._id,
     image: req.file.filename,
+    featured: req.body.featured,
   });
   res.status(201).json({
     message: "Product added successfully.",
@@ -79,10 +80,32 @@ const updateProductById = async (req, res) => {
   });
 };
 
+const getFeaturedProducts = async (req, res) => {
+  const products = await Product.find({ featured: true }).limit(4);
+  res.status(200).json({
+    message: "Product fetched succesfully.",
+    data: products,
+  });
+};
+
+const getLatestProducts = async (req, res) => {
+  const products = await Product.find()
+    .sort({
+      createdAt: "desc",
+    })
+    .limit(4);
+  res.status(200).json({
+    message: "Product fetched succesfully.",
+    data: products,
+  });
+};
+
 module.exports = {
   getProductById,
   getProducts,
   deleteProductById,
   updateProductById,
   addProduct,
+  getFeaturedProducts,
+  getLatestProducts,
 };

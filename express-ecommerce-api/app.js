@@ -1,11 +1,13 @@
 const express = require("express");
 require("express-async-errors");
 const app = express();
+const cors = require("cors");
 const port = 3003;
 const connectDb = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
 const productRoutes = require("./routes/product.routes");
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static("uploads"));
 

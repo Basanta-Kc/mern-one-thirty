@@ -5,21 +5,20 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export default function Product() {
+export default function Product({ product }) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ width: "345px" }}>
       <CardMedia
         sx={{ height: 200 }}
-        image="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/cbddd67b-444b-4a7c-b458-20643ab89b1b/custom-nike-dunk-high-by-you-shoes.png"
+        image={`http://localhost:3003/${product?.image}`}
         title="green iguana"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Nike Shoes
+          {product?.name}
         </Typography>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          Price: ${product?.price}
         </Typography>
       </CardContent>
       <CardActions>
