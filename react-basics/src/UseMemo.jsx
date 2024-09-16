@@ -33,7 +33,7 @@ function App() {
       <p>
         Factorial of {count} : {factorialValue}
       </p>
-      <input type="text" value={value} onChange={handleChange} />
+      <input name="email" type="text" value={value} onChange={handleChange} />
     </>
   );
 }

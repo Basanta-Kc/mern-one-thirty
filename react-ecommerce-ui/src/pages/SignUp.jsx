@@ -7,8 +7,35 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+
+const schema = yup
+  .object({
+    name: yup.string().required(),
+    email: yup.string().email().required(),
+    password: yup
+      .string()
+      .matches(passwordRules, { message: "Please create a stronger password" })
+      .required("Required"),
+  })
+  .required();
 
 export default function SignUp() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const onSubmit = (data) => console.log(data);
+
+  console.log(errors);
+
   return (
     <Stack
       sx={{ width: "80%", mx: "auto" }}
@@ -25,7 +52,7 @@ export default function SignUp() {
         </Typography>
         <Box
           component="form"
-          onSubmit={() => {}}
+          onSubmit={handleSubmit(onSubmit)}
           noValidate
           sx={{
             display: "flex",
@@ -43,10 +70,12 @@ export default function SignUp() {
               placeholder="your name"
               autoComplete="name"
               autoFocus
-              required
               fullWidth
               variant="outlined"
+              error={Boolean(errors?.name?.message)}
+              helperText={errors?.name?.message}
               sx={{ ariaLabel: "name" }}
+              {...register("name")}
             />
           </FormControl>
           <FormControl>
@@ -58,10 +87,12 @@ export default function SignUp() {
               placeholder="your@email.com"
               autoComplete="email"
               autoFocus
-              required
               fullWidth
               variant="outlined"
+              error={Boolean(errors?.email?.message)}
+              helperText={errors?.email?.message}
               sx={{ ariaLabel: "email" }}
+              {...register("email")}
             />
           </FormControl>
           <FormControl>
@@ -75,13 +106,15 @@ export default function SignUp() {
               id="password"
               autoComplete="current-password"
               autoFocus
-              required
               fullWidth
+              error={Boolean(errors?.password?.message)}
+              helperText={errors?.password?.message}
               variant="outlined"
+              {...register("password")}
             />
           </FormControl>
           <Button type="submit" fullWidth variant="contained">
-            Sign in
+            Sign Up
           </Button>
           <Typography sx={{ textAlign: "center" }}>
             Already Have an account{" "}
