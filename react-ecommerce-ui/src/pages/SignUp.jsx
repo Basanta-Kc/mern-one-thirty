@@ -6,11 +6,14 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { toast } from "react-toastify";
+import Alert from "@mui/material/Alert";
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
 const schema = yup
@@ -25,6 +28,22 @@ const schema = yup
   .required();
 
 export default function SignUp() {
+  const navigate = useNavigate();
+  const mutation = useMutation({
+    mutationFn: async (data) => {
+      const res = await axios.post("http://localhost:3003/auth/sign-up", data);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      navigate("/sign-in");
+      toast.success(data.message);
+    },
+    onError: (err) => {
+      //  console.log(err.response.data.message);
+      // toast.error(err.response.data.message);
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -32,9 +51,9 @@ export default function SignUp() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
-
-  console.log(errors);
+  const onSubmit = (data) => {
+    mutation.mutate(data);
+  };
 
   return (
     <Stack
@@ -50,6 +69,11 @@ export default function SignUp() {
         >
           Sign Up
         </Typography>
+        {mutation.error && (
+          <Alert sx={{ my: 2 }} severity="error">
+            {mutation.error.response.data.message}
+          </Alert>
+        )}
         <Box
           component="form"
           onSubmit={handleSubmit(onSubmit)}
