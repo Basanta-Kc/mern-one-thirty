@@ -50,9 +50,20 @@ const signIn = async (req, res, next) => {
         expiresIn: "10d",
       }
     );
+
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 10);
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      expires: expiresAt,
+    });
+
     res.status(200).json({
       message: "Succesfully signed in.",
       token,
+      user,
+      expiresAt,
     });
     return;
   }
@@ -62,7 +73,15 @@ const signIn = async (req, res, next) => {
   });
 };
 
+const logout = async (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({
+    message: "user logout succesfully",
+  });
+};
+
 module.exports = {
   signIn,
   signUp,
+  logout
 };

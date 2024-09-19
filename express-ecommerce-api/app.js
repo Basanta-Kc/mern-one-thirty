@@ -19,8 +19,8 @@ app.get("/test", async (req, res, next) => {
   });
 });
 
-app.use("/products", productRoutes);
-app.use("/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/auth", authRoutes);
 
 app.all("*", (req, res) => {
   res.status(404).json({

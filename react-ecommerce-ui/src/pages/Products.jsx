@@ -31,7 +31,7 @@ function Products() {
   const { data, isLoading } = useQuery({
     queryKey: ["products", { order, page, rowsPerPage }],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3003/products", {
+      const res = await axios.get("/api/products", {
         params: {
           order,
           page,

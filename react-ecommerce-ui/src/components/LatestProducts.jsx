@@ -9,7 +9,7 @@ function LatestProducts() {
   const { data, isLoading } = useQuery({
     queryKey: ["latest-products"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3003/products/latest");
+      const res = await axios.get("/api/products/latest");
       return res.data.data;
     },
   });

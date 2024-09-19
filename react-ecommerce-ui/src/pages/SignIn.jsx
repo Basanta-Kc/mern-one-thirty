@@ -14,6 +14,8 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Alert from "@mui/material/Alert";
+import { AuthContext } from "../App";
+import { useContext } from "react";
 
 const schema = yup
   .object({
@@ -23,15 +25,18 @@ const schema = yup
   .required();
 
 export default function SignUp() {
+  const { setAuthUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: async (data) => {
-      const res = await axios.post("http://localhost:3003/auth/sign-in", data);
+      const res = await axios.post("/api/auth/sign-in", data);
       return res.data;
     },
     onSuccess: (data) => {
       navigate("/");
       toast.success(data.message);
+      setAuthUser(data.user);
+      localStorage.setItem("authUser", JSON.stringify(data.user));
     },
   });
 
@@ -58,7 +63,7 @@ export default function SignUp() {
           variant="h4"
           sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
         >
-          Sign Up
+          Sign In
         </Typography>
         {mutation.error && (
           <Alert sx={{ my: 2 }} severity="error">

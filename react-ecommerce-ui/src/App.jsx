@@ -7,27 +7,35 @@ import HomeLayout from "./layout/HomeLayout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createContext, useState } from "react";
 
+export const AuthContext = createContext();
 const queryClient = new QueryClient();
 
 function App() {
-  
+  const [authUser, setAuthUser] = useState(() => {
+    return JSON.parse(localStorage.getItem("authUser"));
+  });
+
+  const [cart, setCart] = useState([]);
   return (
     <>
       <ToastContainer />
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<HomeLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-            </Route>
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="*" element={<h1>Page not found</h1>} />
-          </Routes>
-        </BrowserRouter>
-      </QueryClientProvider>
+      <AuthContext.Provider value={{ setAuthUser, authUser, cart, setCart }}>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <Routes>
+              <Route element={<HomeLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/products" element={<Products />} />
+              </Route>
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="*" element={<h1>Page not found</h1>} />
+            </Routes>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </AuthContext.Provider>
     </>
   );
 }

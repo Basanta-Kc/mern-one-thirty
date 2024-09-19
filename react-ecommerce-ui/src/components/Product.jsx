@@ -4,8 +4,11 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useContext } from "react";
+import { AuthContext } from "../App";
 
 export default function Product({ product }) {
+  const { setCart, cart } = useContext(AuthContext);
   return (
     <Card sx={{ width: "345px" }}>
       <CardMedia
@@ -22,8 +25,28 @@ export default function Product({ product }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <Button
+          size="small"
+          onClick={() => {
+            // if the product exist in cart
+            const productExist = cart.find(({ _id }) => _id === product._id);
+            const newCartItems = [...cart];
+            if (productExist) {
+              productExist.quantity++;
+            } else {
+              newCartItems.push({
+                _id: product._id,
+                name: product.name,
+                price: product.price,
+                quantity: 1,
+              });
+            }
+
+            setCart(newCartItems);
+          }}
+        >
+          Add To Cart
+        </Button>
       </CardActions>
     </Card>
   );

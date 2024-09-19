@@ -31,7 +31,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: async (data) => {
-      const res = await axios.post("http://localhost:3003/auth/sign-up", data);
+      const res = await axios.post("/api/auth/sign-up", data);
       return res.data;
     },
     onSuccess: (data) => {

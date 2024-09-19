@@ -9,7 +9,7 @@ function FeaturedProducts() {
   const { data, isLoading } = useQuery({
     queryKey: ["featured-products"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3003/products/featured");
+      const res = await axios.get("/api/products/featured");
       return res.data.data;
     },
   });
