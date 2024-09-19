@@ -149,7 +149,14 @@ function NavBar() {
               alignItems: "center",
             }}
           >
-            <Badge badgeContent={cart.length} color="warning" sx={{ mr: 2 }}>
+            <Badge
+              badgeContent={cart.length}
+              color="warning"
+              sx={{ mr: 2 }}
+              onClick={() => {
+                navigate("/cart");
+              }}
+            >
               <AddShoppingCartIcon />
             </Badge>
             {authUser ? (
