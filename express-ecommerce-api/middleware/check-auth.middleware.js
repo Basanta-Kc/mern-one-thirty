@@ -20,7 +20,9 @@ const { JWT_SECRET_KEY } = require("../config/constant");
 // useCase = checAuth('customer') , checkAuth('Admin')
 
 const checkAuth = (req, res, next) => {
-  const { token } = req.headers;
+  console.log(req.cookies);
+
+  const token = req.cookies.token ?? req.headers.token;
   try {
     const user = jwt.verify(token, JWT_SECRET_KEY);
 

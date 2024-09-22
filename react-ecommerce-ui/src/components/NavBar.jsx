@@ -141,6 +141,14 @@ function NavBar() {
             >
               Products
             </Button>
+            <Button
+              onClick={() => {
+                navigate("/orders");
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Orders
+            </Button>
           </Box>
           <Box
             sx={{

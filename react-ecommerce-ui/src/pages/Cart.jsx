@@ -12,10 +12,27 @@ import { AuthContext } from "../App";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import Chip from "@mui/material/Chip";
-import Button  from "@mui/material/Button";
+import Button from "@mui/material/Button";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const { cart, setCart } = useContext(AuthContext);
+
+  const mutation = useMutation({
+    mutationFn: async (data) => {
+      const res = await axios.post("/api/products/order", data);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      navigate("/order");
+      toast.success(data.message);
+    },
+  });
+
   const handleDelete = (id) => {
     const newCartItems = cart.filter((product) => !(product._id === id));
     setCart(newCartItems);
@@ -38,6 +55,17 @@ export default function Cart() {
   const totalPrice = cart.reduce((acc, curr) => {
     return acc + curr.quantity * curr.price;
   }, 0);
+
+  const handleOrder = () => {
+    // post api call to /products/order api
+    const products = cart.map(({ _id, quantity }) => ({
+      product: _id,
+      quantity,
+    }));
+    mutation.mutate({
+      products,
+    });
+  };
 
   return (
     <Grid item xs={12} md={6}>
@@ -92,7 +120,9 @@ export default function Cart() {
       <Typography>
         <b>Total</b>: ${totalPrice}
       </Typography>
-      <Button variant="contained">Procedd to payment</Button>
+      <Button variant="contained" onClick={handleOrder}>
+        Procedd to payment
+      </Button>
     </Grid>
   );
 }

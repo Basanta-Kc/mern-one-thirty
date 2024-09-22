@@ -22,6 +22,8 @@ const {
   addProduct,
   getFeaturedProducts,
   getLatestProducts,
+  createOrder,
+  getOrders,
 } = require("../controllers/product.controller");
 const {
   checkAuth,
@@ -33,6 +35,8 @@ const router = express.Router();
 router.get("/", getProducts);
 router.get("/featured", getFeaturedProducts);
 router.get("/latest", getLatestProducts);
+router.post("/order", checkAuth, createOrder);
+router.get("/order", checkAuth, getOrders);
 router.post("/", checkAuth, upload.single("image"), addProduct);
 router.get("/:productId", checkAuth, getProductById);
 router.delete("/:productId", checkAuthAdmin, deleteProductById);

@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createContext, useState, useEffect } from "react";
 import Cart from "./pages/Cart";
+import Orders from "./pages/Orders";
 
 export const AuthContext = createContext();
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/orders" element={<Orders />} />
               </Route>
               <Route path="/sign-in" element={<SignIn />} />
               <Route path="/sign-up" element={<SignUp />} />

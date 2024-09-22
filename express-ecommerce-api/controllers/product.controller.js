@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const Order = require("../models/Order");
 
 //home-work: validate the query fields using express-validaator
 // total ma ailey 0 xa tesma total count,
@@ -100,6 +101,59 @@ const getLatestProducts = async (req, res) => {
   });
 };
 
+// req.body = {
+//     totalPrice: 100,
+//     products: [
+//         {
+//             product: 1,
+//             quantiy: 2
+//         },
+//         {
+//             product: 1,
+//             quantiy: 2
+//         },
+//     ]
+// }
+// checkAuth // req.authUser = user
+const createOrder = async (req, res) => {
+  await Order.create({
+    user: req.authUser._id,
+    ...req.body,
+    totalPrice: 0, // should be calculated in backend
+  });
+
+  res.json({
+    message: "Order created succesfully.",
+  });
+};
+
+const getOrders = async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+
+  const filter = {
+    user: req.authUser._id,
+  };
+
+  if (req.query.status) {
+    filter.status = req.query.status;
+  }
+
+  const orders = await Order.find(filter)
+    .limit(limit)
+    .skip((page - 1) * limit ?? 10);
+
+  const total = await Order.countDocuments(filter);
+
+  res.status(200).json({
+    message: "Orders fetched successfully",
+    data: {
+      page,
+      total,
+      data: orders,
+    },
+  });
+};
+
 module.exports = {
   getProductById,
   getProducts,
@@ -108,4 +162,6 @@ module.exports = {
   addProduct,
   getFeaturedProducts,
   getLatestProducts,
+  createOrder,
+  getOrders,
 };
