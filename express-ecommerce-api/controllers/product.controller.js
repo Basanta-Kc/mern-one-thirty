@@ -51,7 +51,7 @@ const addProduct = async (req, res) => {
     name: req.body.name,
     price: req.body.price,
     user: req.authUser._id,
-    image: req.file.filename,
+    image: req?.file?.filename,
     featured: req.body.featured,
   });
   res.status(201).json({

@@ -21,7 +21,13 @@ import { toast } from "react-toastify";
 import Badge from "@mui/material/Badge";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard"];
+const settings = [
+  { page: "Dashboard", route: "/dashboard/products" },
+  {
+    page: "Profile",
+    route: "/profile",
+  },
+];
 
 function NavBar() {
   const { authUser, setAuthUser, cart } = useContext(AuthContext);
@@ -205,9 +211,15 @@ function NavBar() {
                     }
 
                     return (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <MenuItem
+                        key={setting.page}
+                        onClick={() => {
+                          navigate(setting.route);
+                          handleCloseUserMenu();
+                        }}
+                      >
                         <Typography sx={{ textAlign: "center" }}>
-                          {setting}
+                          {setting.page}
                         </Typography>
                       </MenuItem>
                     );

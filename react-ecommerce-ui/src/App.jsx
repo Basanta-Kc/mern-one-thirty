@@ -19,6 +19,7 @@ import Orders from "./pages/Orders";
 import Dashboard from "./pages/Dashboard";
 import DashboardLayout from "./layout/DashBaordLayout";
 import DashboardProducts from "./pages/dashboard/DashboardProducts";
+import ProductForm from "./pages/dashboard/ProductForm";
 
 export const AuthContext = createContext();
 const queryClient = new QueryClient();
@@ -69,6 +70,14 @@ function App() {
                   path="/dashboard/users"
                   element={<h2>users table similar to product</h2>}
                 />
+                <Route
+                  path="/dashboard/products/add"
+                  element={<ProductForm />}
+                />
+                <Route
+                  path="/dashboard/products/edit/:productId"
+                  element={<ProductForm />}
+                />
               </Route>
 
               <Route path="*" element={<h1>Page not found</h1>} />
@@ -84,3 +93,7 @@ export default App;
 
 // logo ma click garda home page
 // order page banauna paro, add order in navbar
+
+// complete product with image
+// stripe implementation
+// 
