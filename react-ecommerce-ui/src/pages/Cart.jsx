@@ -28,7 +28,8 @@ export default function Cart() {
       return res.data;
     },
     onSuccess: (data) => {
-      navigate("/order");
+      navigate("/orders");
+      setCart([]);
       toast.success(data.message);
     },
   });
@@ -120,7 +121,11 @@ export default function Cart() {
       <Typography>
         <b>Total</b>: ${totalPrice}
       </Typography>
-      <Button variant="contained" onClick={handleOrder}>
+      <Button
+        variant="contained"
+        disabled={cart.length === 0}
+        onClick={handleOrder}
+      >
         Procedd to payment
       </Button>
     </Grid>

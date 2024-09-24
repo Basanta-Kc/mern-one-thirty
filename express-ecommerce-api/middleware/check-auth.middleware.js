@@ -35,9 +35,10 @@ const checkAuth = (req, res, next) => {
 // roles = ['Customer', 'Admin', 'Super Admin' ]
 // roles.includes('cuomster')
 const checkAuthAdmin = (req, res, next) => {
-  const { token } = req.headers;
+  const token = req.cookies.token ?? req.headers.token;
   try {
     const user = jwt.verify(token, JWT_SECRET_KEY);
+    console.log(user);
     if (!user.roles.includes("Admin")) {
       res.status(401).json({ message: "Unauthorized action" });
       return;
