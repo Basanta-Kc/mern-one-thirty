@@ -9,21 +9,25 @@ import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import TablePagination from "@mui/material/TablePagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useDebounce } from "../../hooks/useDebounce";
 
 // pagination
 // TODO: USE DEBOUNCE IN SEARCH
 export default function DashboardProducts() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const [search, setSearch] = useState(null);
+  const debouncedSearch = useDebounce(search, 1000);
+
+  // seearch =abc
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage + 1);
@@ -34,13 +38,13 @@ export default function DashboardProducts() {
     setPage(1);
   };
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["products", { page, rowsPerPage, search }],
+    queryKey: ["products", { page, rowsPerPage, debouncedSearch }],
     queryFn: async () => {
       const res = await axios.get("/api/products", {
         params: {
           page,
           limit: rowsPerPage,
-          search,
+          search: debouncedSearch,
         },
       });
       return res.data.data;
@@ -63,14 +67,25 @@ export default function DashboardProducts() {
 
   return (
     <TableContainer component={Paper}>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <TextField
           onChange={(e) => setSearch(e.target.value)}
           label="Search Products"
           id="search"
           sx={{ m: 1 }}
         />
-        <Button variant="contained" onClick={() => navigate("/dashboard/products/add")}>Add</Button>
+        <Button
+          variant="contained"
+          onClick={() => navigate("/dashboard/products/add")}
+        >
+          Add
+        </Button>
       </Box>
       <Table sx={{ minWidth: 650 }} aria-label="product table">
         <TableHead>
@@ -116,7 +131,11 @@ export default function DashboardProducts() {
                 <TableCell>{name}</TableCell>
                 <TableCell>{price}</TableCell>
                 <TableCell>
-                  <Button onClick={() => navigate(`/dashboard/products/edit/${_id}`)} variant="contained" color="secondary">
+                  <Button
+                    onClick={() => navigate(`/dashboard/products/edit/${_id}`)}
+                    variant="contained"
+                    color="secondary"
+                  >
                     Edit
                   </Button>
                   <Button

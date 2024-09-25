@@ -14,8 +14,8 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Alert from "@mui/material/Alert";
-import { AuthContext } from "../App";
 import { useContext } from "react";
+import { AuthContext } from "../context/AuthProvider";
 
 const schema = yup
   .object({

@@ -40,6 +40,11 @@ router.get("/order", checkAuth, getOrders);
 router.post("/", checkAuth, upload.single("image"), addProduct);
 router.get("/:productId", checkAuth, getProductById);
 router.delete("/:productId", checkAuthAdmin, deleteProductById);
-router.patch("/:productId", checkAuthAdmin, updateProductById);
+router.patch(
+  "/:productId",
+  checkAuthAdmin,
+  upload.single("image"),
+  updateProductById
+);
 
 module.exports = router;

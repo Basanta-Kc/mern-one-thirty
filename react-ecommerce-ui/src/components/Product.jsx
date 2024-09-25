@@ -5,10 +5,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useContext } from "react";
-import { AuthContext } from "../App";
+import { CartContext } from "../context/CartProvider";
 
 export default function Product({ product }) {
-  const { setCart, cart } = useContext(AuthContext);
+  const { setCart, cart } = useContext(CartContext);
   return (
     <Card sx={{ width: "345px" }}>
       <CardMedia

@@ -75,7 +75,7 @@ const deleteProductById = async (req, res) => {
 
 const updateProductById = async (req, res) => {
   const id = req.params.productId;
-  await Product.updateOne({ _id: id }, req.body);
+  await Product.updateOne({ _id: id }, {...req.body, image: req.file.filename});
   res.status(200).json({
     message: "Product updated succesfully.",
   });

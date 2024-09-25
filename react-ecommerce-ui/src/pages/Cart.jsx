@@ -8,7 +8,6 @@ import Grid from "@mui/material/Grid2";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useContext } from "react";
-import { AuthContext } from "../App";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import Chip from "@mui/material/Chip";
@@ -17,10 +16,11 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { CartContext } from "../context/CartProvider";
 
 export default function Cart() {
   const navigate = useNavigate();
-  const { cart, setCart } = useContext(AuthContext);
+  const { cart, setCart } = useContext(CartContext);
 
   const mutation = useMutation({
     mutationFn: async (data) => {

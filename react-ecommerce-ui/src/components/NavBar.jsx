@@ -13,13 +13,14 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../App";
 import { useContext } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Badge from "@mui/material/Badge";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { CartContext } from "../context/CartProvider";
+import { AuthContext } from "../context/AuthProvider";
 const pages = ["Products", "Pricing", "Blog"];
 const settings = [
   { page: "Dashboard", route: "/dashboard/products" },
@@ -30,7 +31,8 @@ const settings = [
 ];
 
 function NavBar() {
-  const { authUser, setAuthUser, cart } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);
+  const { authUser, setAuthUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);

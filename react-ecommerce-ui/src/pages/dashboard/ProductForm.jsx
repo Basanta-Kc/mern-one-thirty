@@ -38,12 +38,17 @@ export default function ProductForm() {
 
   const mutation = useMutation({
     mutationFn: async (data) => {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("price", data.price);
+      formData.append("image", data.image[0]);
+
       if (productId) {
-        const res = await axios.patch(`/api/products/${productId}`, data);
+        const res = await axios.patch(`/api/products/${productId}`, formData);
         return res.data;
       }
 
-      const res = await axios.post("/api/products", data);
+      const res = await axios.post("/api/products", formData);
       return res.data;
     },
     onSuccess: (data) => {
@@ -102,6 +107,10 @@ export default function ProductForm() {
             gap: 2,
           }}
         >
+          <FormControl>
+            <FormLabel htmlFor="name">Image</FormLabel>
+            <input type="file" {...register("image")} />
+          </FormControl>
           <FormControl>
             <FormLabel htmlFor="name">Name</FormLabel>
             <TextField
