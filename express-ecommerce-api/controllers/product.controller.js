@@ -1,5 +1,8 @@
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const stripe = require("stripe")(
+  "sk_test_51M2ALFFEon6AQRRqZGoTHmXZFVSKoxQVoFRYpjpHMNeZ7CuWF2i2MEuVXCLDRGceLSR9Fh1tjLQp5aUK76gEHyX100Oz1EleVm"
+);
 
 //home-work: validate the query fields using express-validaator
 // total ma ailey 0 xa tesma total count,
@@ -75,7 +78,10 @@ const deleteProductById = async (req, res) => {
 
 const updateProductById = async (req, res) => {
   const id = req.params.productId;
-  await Product.updateOne({ _id: id }, {...req.body, image: req.file.filename});
+  await Product.updateOne(
+    { _id: id },
+    { ...req.body, image: req.file.filename }
+  );
   res.status(200).json({
     message: "Product updated succesfully.",
   });
@@ -116,19 +122,51 @@ const getLatestProducts = async (req, res) => {
 // }
 // checkAuth // req.authUser = user
 const createOrder = async (req, res) => {
-  await Order.create({
+  const line_items = [];
+  let totalPrice = 0;
+  for (let { product, quantity } of req.body.products) {
+    console.log(product);
+    const productInfo = await Product.findById(product);
+    console.log(productInfo);
+    const price = await stripe.prices.create({
+      currency: "usd",
+      unit_amount: productInfo.price * 100,
+      product_data: {
+        name: productInfo.name,
+      },
+    });
+    totalPrice += productInfo.price * quantity;
+    line_items.push({
+      price: price.id,
+      quantity,
+    });
+  }
+
+  const newOrder = new Order({
     user: req.authUser._id,
     ...req.body,
-    totalPrice: 0, // should be calculated in backend
+    totalPrice, // should be calculated in backend
+  });
+
+  const order = await newOrder.save();
+
+  const session = await stripe.checkout.sessions.create({
+    success_url: "http://localhost:5173/success",
+    line_items,
+    mode: "payment",
+    metadata: {
+      orderId: order._id.toString(),
+    },
   });
 
   res.json({
     message: "Order created succesfully.",
+    url: session.url,
   });
 };
 
 const getOrders = async (req, res) => {
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 100 } = req.query;
 
   const filter = {
     user: req.authUser._id,

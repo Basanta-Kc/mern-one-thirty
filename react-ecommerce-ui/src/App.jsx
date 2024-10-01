@@ -42,6 +42,10 @@ function App() {
               <Routes>
                 <Route element={<HomeLayout />}>
                   <Route path="/" element={<Home />} />
+                  <Route
+                    path="/success"
+                    element={<h1>Payment succesfull.</h1>}
+                  />
                   <Route path="/products" element={<Products />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route element={<ProtectedRoutes />}>

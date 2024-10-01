@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartProvider";
 
 export default function Product({ product }) {
-  const { setCart, cart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
   return (
     <Card sx={{ width: "345px" }}>
       <CardMedia
@@ -25,27 +25,7 @@ export default function Product({ product }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button
-          size="small"
-          onClick={() => {
-            // if the product exist in cart
-            const productExist = cart.find(({ _id }) => _id === product._id);
-            const newCartItems = [...cart];
-            if (productExist) {
-              productExist.quantity++;
-            } else {
-              newCartItems.push({
-                _id: product._id,
-                name: product.name,
-                price: product.price,
-                image: product.image,
-                quantity: 1,
-              });
-            }
-
-            setCart(newCartItems);
-          }}
-        >
+        <Button size="small" onClick={() => addToCart(product)}>
           Add To Cart
         </Button>
       </CardActions>

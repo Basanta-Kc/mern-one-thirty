@@ -29,13 +29,16 @@ export default function Cart() {
       return res.data;
     },
     onSuccess: (data) => {
-      navigate("/orders");
-      resetCart()
-      toast.success(data.message);
+      try {
+        console.log(data);
+        location.replace(data.url); // stripe ko payment
+        resetCart();
+        toast.success(data.message);
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
-
-
 
   const totalPrice = cart.reduce((acc, curr) => {
     return acc + curr.quantity * curr.price;

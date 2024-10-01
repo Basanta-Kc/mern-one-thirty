@@ -10,24 +10,43 @@ function CartProvider({ children }) {
 
   const resetCart = () => setCart([]);
 
-    const handleDelete = (id) => {
-      const newCartItems = cart.filter((product) => !(product._id === id));
-      setCart(newCartItems);
-    };
+  const handleDelete = (id) => {
+    const newCartItems = cart.filter((product) => !(product._id === id));
+    setCart(newCartItems);
+  };
 
-    const handleIncrement = (index) => {
-      cart[index].quantity++;
-      setCart([...cart]);
-    };
+  const handleIncrement = (index) => {
+    cart[index].quantity++;
+    setCart([...cart]);
+  };
 
-    const handleDecrement = (index) => {
-      cart[index].quantity--;
-      if (cart[index].quantity === 0) {
-        handleDelete(cart[index]._id);
-        return;
-      }
-      setCart([...cart]);
-    };
+  const handleDecrement = (index) => {
+    cart[index].quantity--;
+    if (cart[index].quantity === 0) {
+      handleDelete(cart[index]._id);
+      return;
+    }
+    setCart([...cart]);
+  };
+
+  const addToCart = (product) => {
+    // if the product exist in cart
+    const productExist = cart.find(({ _id }) => _id === product._id);
+    const newCartItems = [...cart];
+    if (productExist) {
+      productExist.quantity++;
+    } else {
+      newCartItems.push({
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        quantity: 1,
+      });
+    }
+
+    setCart(newCartItems);
+  };
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -35,7 +54,16 @@ function CartProvider({ children }) {
 
   return (
     <>
-      <CartContext.Provider value={{ cart, resetCart, handleDecrement, handleIncrement, handleDelete }}>
+      <CartContext.Provider
+        value={{
+          cart,
+          resetCart,
+          handleDecrement,
+          handleIncrement,
+          handleDelete,
+          addToCart,
+        }}
+      >
         {children}
       </CartContext.Provider>
     </>
