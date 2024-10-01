@@ -20,7 +20,8 @@ import { CartContext } from "../context/CartProvider";
 
 export default function Cart() {
   const navigate = useNavigate();
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, resetCart, handleDecrement, handleIncrement, handleDelete } =
+    useContext(CartContext);
 
   const mutation = useMutation({
     mutationFn: async (data) => {
@@ -29,29 +30,12 @@ export default function Cart() {
     },
     onSuccess: (data) => {
       navigate("/orders");
-      setCart([]);
+      resetCart()
       toast.success(data.message);
     },
   });
 
-  const handleDelete = (id) => {
-    const newCartItems = cart.filter((product) => !(product._id === id));
-    setCart(newCartItems);
-  };
 
-  const handleIncrement = (index) => {
-    cart[index].quantity++;
-    setCart([...cart]);
-  };
-
-  const handleDecrement = (index) => {
-    cart[index].quantity--;
-    if (cart[index].quantity === 0) {
-      handleDelete(cart[index]._id);
-      return;
-    }
-    setCart([...cart]);
-  };
 
   const totalPrice = cart.reduce((acc, curr) => {
     return acc + curr.quantity * curr.price;

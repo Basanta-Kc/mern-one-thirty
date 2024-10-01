@@ -8,13 +8,34 @@ function CartProvider({ children }) {
     return JSON.parse(localStorage.getItem("cart")) ?? [];
   });
 
+  const resetCart = () => setCart([]);
+
+    const handleDelete = (id) => {
+      const newCartItems = cart.filter((product) => !(product._id === id));
+      setCart(newCartItems);
+    };
+
+    const handleIncrement = (index) => {
+      cart[index].quantity++;
+      setCart([...cart]);
+    };
+
+    const handleDecrement = (index) => {
+      cart[index].quantity--;
+      if (cart[index].quantity === 0) {
+        handleDelete(cart[index]._id);
+        return;
+      }
+      setCart([...cart]);
+    };
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   return (
     <>
-      <CartContext.Provider value={{ cart, setCart }}>
+      <CartContext.Provider value={{ cart, resetCart, handleDecrement, handleIncrement, handleDelete }}>
         {children}
       </CartContext.Provider>
     </>

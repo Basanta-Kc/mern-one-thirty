@@ -1,5 +1,5 @@
 import "react-toastify/dist/ReactToastify.css";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
@@ -7,6 +7,10 @@ function AuthProvider({ children }) {
   const [authUser, setAuthUser] = useState(() => {
     return JSON.parse(localStorage.getItem("authUser"));
   });
+
+  useEffect(() => {
+    localStorage.setItem("authUser", JSON.stringify(authUser));
+  }, [authUser]);
 
   return (
     <>
@@ -16,8 +20,6 @@ function AuthProvider({ children }) {
     </>
   );
 }
-
-
 
 export default AuthProvider;
 

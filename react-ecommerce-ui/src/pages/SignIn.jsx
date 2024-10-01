@@ -36,7 +36,6 @@ export default function SignUp() {
       navigate("/");
       toast.success(data.message);
       setAuthUser(data.user);
-      localStorage.setItem("authUser", JSON.stringify(data.user));
     },
   });
 
